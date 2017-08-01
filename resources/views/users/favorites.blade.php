@@ -10,8 +10,10 @@
                 <div class="panel-body">
                     <img class="media-object img-rounded img-responsive" src="{{ Gravatar::src($user->email, 500) }}" alt="">
                 </div>
-                 @include('user_follow.follow_button', ['user' => $user])
-         </div>
+                <p>{!! ($favorites) !!}</p>
+
+            </div>
+            @include('user_follow.follow_button', ['user' => $user])
         </aside>
         <div class="col-xs-8">
             <ul class="nav nav-tabs nav-justified">
@@ -20,9 +22,14 @@
                 <li role="presentation" class="{{ Request::is('users/*/followers') ? 'active' : '' }}"><a href="{{ route('users.followers', ['id' => $user->id]) }}">Followers <span class="badge">{{ $count_followers }}</span></a></li>
                 <li role="presentation" class="{{ Request::is('users/*/favorites') ? 'active' : '' }}"><a href="{{ route('users.favorites', ['id' => $user->id]) }}">favorites <span class="badge">{{ $count_favorites }}</span></a></li>
             </ul>
-            @if (count($microposts) > 0)
-                @include('microposts.microposts', ['microposts' => $microposts])
+            @if ($count_favorites > 0)
+                @include('favorites.favorites', ['favorites' => $favorites])
+            @else
+                <p>お気に入りはありません</p>            
             @endif
         </div>
+    </div>          
     </div>
 @endsection
+
+

@@ -13,6 +13,11 @@
                 <p>{!! nl2br(e($micropost->content)) !!}</p>
             </div>
             
+            <!--お気に入りボタンを追加-->
+            <div>
+                @include('favorites.favorite_button', ['post' => $micropost])
+            </div>
+            <p></p> 
             <div>
                 @if (Auth::user()->id == $micropost->user_id)
                     {!! Form::open(['route' => ['microposts.destroy', $micropost->id], 'method' => 'delete']) !!}

@@ -11,13 +11,17 @@
                     </div>
                     {!! Form::submit('Post', ['class' => 'btn btn-primary btn-block']) !!}
                 {!! Form::close() !!}
+            <p></p>    
+            <a class="btn btn-success btn-block" href="{{ route('users.favorites', ['id' => $user->id]) }}">Favorites</a>
                 
             </aside>
             
             <div class="col-xs-8">
                 @if (count($microposts) > 0)
                     @include('microposts.microposts', ['microposts' => $microposts])
+                
                 @endif
+                
             </div>
         </div>
     @else

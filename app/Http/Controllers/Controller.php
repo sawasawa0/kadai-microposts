@@ -18,6 +18,10 @@ abstract class Controller extends BaseController
         $count_followings = $user->followings()->count();
         $count_followers = $user->followers()->count();
         
+        //お気に入りのカウントを追加
+        $count_favorites = $user->favorites()->count();
+        
+        
         
         return [
             'count_microposts' => $count_microposts,
@@ -25,6 +29,21 @@ abstract class Controller extends BaseController
              //フォロー・アンフォローのカウントを追加
             'count_followings' => $count_followings,
             'count_followers' => $count_followers,
+            
+        //お気に入りのカウントを追加
+            'count_favorites' => $count_favorites,
         ];
     }
+    
+    
+     public function post_counts($post) {
+         //お気に入られのカウントを追加
+         $count_favored = $post->favored()->count();
+         
+         return [
+             //お気に入られのカウントを追加
+            'count_favored' => $count_favored,
+         ];
+     }
+    
 }

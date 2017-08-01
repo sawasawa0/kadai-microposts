@@ -27,6 +27,7 @@ Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 // ログイン認証後のユーザー機能
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
+
     //ユーザーのフォロー・アンフォロー機能
     Route::group(['prefix' => 'users/{id}'], function () { 
         Route::post('follow', 'UserFollowController@store')->name('user.follow');
@@ -34,6 +35,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('followings', 'UsersController@followings')->name('users.followings');
         Route::get('followers', 'UsersController@followers')->name('users.followers');
     });
+
+    //お気に入り機能
+    Route::group(['prefix' => 'users/{id}'], function () { 
+        Route::post('favor', 'FavoriteController@store')->name('user.favor');
+        Route::delete('unfavor', 'FavoriteController@destroy')->name('user.unfavor');
+        Route::get('favorites', 'UsersController@favorites')->name('users.favorites');
+        Route::get('favored', 'UsersController@favored')->name('microposts.favored');
+    });
+
+
+
     
     Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy']]);
 });
