@@ -12,6 +12,7 @@
                 <div>
                     <p>{!! ($favorite->content) !!}</p>
                 </div>
+              
             </div>
         </li>
     @endforeach
